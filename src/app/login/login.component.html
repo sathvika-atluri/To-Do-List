@@ -1,0 +1,49 @@
+<div class="login-container">
+  <div class="background-image"></div>
+  <div class="login-form">
+    <h2>Welcome</h2>
+    <input type="email" placeholder="Enter your email" [(ngModel)]="email">
+    <button (click)="performLoginAndActions()">Login</button> <!-- Call performLoginAndActions() instead -->
+  </div>
+  </div>
+  <div class="category-buttons">
+    <button (click)="filterTasks('completed')">Completed</button>
+    <button (click)="filterTasks('ongoing')">Ongoing</button>
+    <button (click)="filterTasks('pending')">Pending</button>
+  </div>
+  
+  
+  <div class="tasks-container" *ngIf="tasks.length > 0">
+    <h2>{{ email }}</h2>
+    <ul>
+      <li *ngFor="let task of tasks">
+        <h3>{{ task.TASK_NAME }}</h3>
+        <p>{{ task.DESCRIPTION }}</p>
+        <p>Status: {{ task.STATUS }}</p>
+        <p>Due Date: {{ task.DUE_DATE }}</p>
+        <p>Category: {{ task.CATEGORY }}</p>
+        <button (click)="updateTask(task)">Update</button>
+        <button (click)="deleteTask(task)">Delete</button>
+      </li>
+    </ul>
+    <button (click)="showAddTaskForm()">Add Task</button>
+  </div>
+  
+  <form *ngIf="showAddTask">
+    <label>Task Name: <input type="text" [(ngModel)]="newTask.TASK_NAME"></label><br>
+    <label>Description: <input type="text" [(ngModel)]="newTask.DESCRIPTION"></label><br>
+    <label>Status: <input type="text" [(ngModel)]="newTask.STATUS"></label><br>
+    <label>Due Date: <input type="date" [(ngModel)]="newTask.DUE_DATE"></label><br>
+    <label>Category: <input type="text" [(ngModel)]="newTask.CATEGORY"></label><br>
+    <button type="button" (click)="addTask()">Submit</button>
+  </form>
+  
+  <form *ngIf="showUpdateTask">
+    <label>Task Name: <input type="text" [(ngModel)]="selectedTask.TASK_NAME"></label><br>
+    <label>Description: <input type="text" [(ngModel)]="selectedTask.DESCRIPTION"></label><br>
+    <label>Status: <input type="text" [(ngModel)]="selectedTask.STATUS"></label><br>
+    <label>Due Date: <input type="date" [(ngModel)]="selectedTask.DUE_DATE"></label><br>
+    <label>Category: <input type="text" [(ngModel)]="selectedTask.CATEGORY"></label><br>
+    <button type="button" (click)="updateTaskInDatabase()">Update</button>
+  </form>
+  
